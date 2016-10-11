@@ -1,0 +1,42 @@
+﻿<u:MvvmApplication x:Class="ExampleApp.Wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:u="clr-namespace:DHaven.MicroMvvm.Wpf;assembly=DHaven.MicroMvvm.Wpf"
+             xmlns:local="clr-namespace:ExampleApp.Wpf"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <u:MvvmApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.IconPacks;component/Themes/IconPacks.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </u:MvvmApplication.Resources>
+    <u:MvvmApplication.StartingViewModel>
+        <local:ExampleAppViewModel/>
+    </u:MvvmApplication.StartingViewModel>
+    <u:MvvmApplication.WindowManager>
+        <u:WindowManager AppName="Example App: WPF">
+            <u:WindowManager.AppIcon>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="16,16,16,16"/>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Brush>
+                                <VisualBrush Stretch="Fill">
+                                    <VisualBrush.Visual>
+                                        <iconPacks:PackIconMaterial Foreground="White" Background="Blue" Kind="Candycane"/>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </u:WindowManager.AppIcon>
+        </u:WindowManager>
+    </u:MvvmApplication.WindowManager>
+</u:MvvmApplication>
