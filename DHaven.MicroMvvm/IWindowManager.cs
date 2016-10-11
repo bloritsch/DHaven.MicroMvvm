@@ -16,6 +16,7 @@
 
 using System.Threading.Tasks;
 using DHaven.MicroMvvm.Dialog;
+using DHaven.MicroMvvm.Notice;
 
 namespace DHaven.MicroMvvm
 {
@@ -24,5 +25,7 @@ namespace DHaven.MicroMvvm
         Task<IDialogCommand> ShowDialog(DialogViewModel dialogViewModel);
 
         Task OpenWindow(IViewModel viewModel, bool showAppIcon = true);
+
+        INotificationControl Notify(Message message, IViewModel parentViewModel = null);
     }
 }

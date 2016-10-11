@@ -47,7 +47,7 @@ namespace DHaven.MicroMvvm.Dialog
 
         public void ChooseCommand(IDialogCommand command)
         {
-            command?.Invoked(command);
+            command?.Invoked?.Invoke(command);
 
             Result.SetResult(command);
         }

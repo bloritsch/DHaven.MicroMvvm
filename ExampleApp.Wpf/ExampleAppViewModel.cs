@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using DHaven.MicroMvvm;
 using DHaven.MicroMvvm.Dialog;
+using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf;
 using MahApps.Metro;
 
@@ -70,7 +71,10 @@ namespace ExampleApp.Wpf
                 ? "I'm glad you like it."
                 : "I wonder how I can improve?";
 
-            // Notifications are next
+            INotificationControl control = Model.WindowManager.Notify(new Message(title, message));
+
+            control.AutoHideAfter(TimeSpan.FromSeconds(5));
+            control.AutoCloseAfter(TimeSpan.FromSeconds(15));
         }
     }
 
