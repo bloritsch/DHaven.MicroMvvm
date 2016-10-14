@@ -3,19 +3,66 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:wpf="clr-namespace:DHaven.MicroMvvm.Wpf"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       SizeToContent="WidthAndHeight"
                       GlowBrush="Black" NonActiveGlowBrush="{x:Null}"
                       MinHeight="120" MinWidth="150">
-    <wpf:DynamicView DataContext="{Binding Path=., IsAsync=True}" Margin="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <ProgressBar Margin="20,10" Height="10" Grid.Row="1" IsIndeterminate="True" IsHitTestVisible="False" />
-            <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="{StaticResource WindowTitleFontSize}"  Text="Loading ..."/>
-        </Grid>
-    </wpf:DynamicView>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <ToggleButton Padding="3" IsChecked="{Binding ElementName=NotificationFlyout, Path=IsOpen}">
+                <iconPacks:PackIconMaterial Kind="Message"/>
+            </ToggleButton>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Name="NotificationFlyout" Header="Notifications" Theme="Dark" Position="Right" Width="350">
+                <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=OpenNotifications}">
+                </ItemsControl>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <wpf:DynamicView DataContext="{Binding Path=., IsAsync=True}" Grid.ColumnSpan="2" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ProgressBar Margin="20,10" Height="10" Grid.Row="1" IsIndeterminate="True" IsHitTestVisible="False" />
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="{StaticResource WindowTitleFontSize}"  Text="Loading ..."/>
+            </Grid>
+        </wpf:DynamicView>
+        <ItemsControl Margin="0 25" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=ShownNotifications}" VerticalAlignment="Bottom">
+            <ItemsControl.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ItemsControl.Resources>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{DynamicResource ControlBackgroundBrush}" Margin="0 5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                                <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}" Foreground="{DynamicResource TextBrush}" Margin="5"/>
+                            <Button Grid.Column="1" Style="{StaticResource ChromelessButtonStyle}" Margin="5" Click="HideNotificationClick" VerticalAlignment="Top">
+                                <iconPacks:PackIconMaterial Kind="Close" Width="10" Height="10"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </controls:MetroWindow>

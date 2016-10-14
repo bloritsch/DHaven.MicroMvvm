@@ -15,7 +15,11 @@
 #endregion
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
+using DHaven.MicroMvvm.Notice;
+using DHaven.MicroMvvm.Wpf.Notice;
 
 namespace DHaven.MicroMvvm.Wpf
 {
@@ -31,7 +35,19 @@ namespace DHaven.MicroMvvm.Wpf
             InitializeComponent();
         }
 
+        public ObservableCollection<Notification> ShownNotifications { get; } = new ObservableCollection<Notification>();
+
+        public ObservableCollection<Notification> OpenNotifications { get; } = new ObservableCollection<Notification>();
+
         public Task Task => completionSource.Task;
+
+        public INotificationControl Publish(Notification notification)
+        {
+            OpenNotifications.Add(notification);
+            ShownNotifications.Add(notification);
+
+            return new NotificationControl(notification, this);
+        }
 
         #region Overrides of Window
 
@@ -45,5 +61,32 @@ namespace DHaven.MicroMvvm.Wpf
         }
 
         #endregion
+
+        private void HideNotificationClick(object sender, RoutedEventArgs e)
+        {
+            var control = sender as FrameworkElement;
+            var notice = control?.DataContext as Notification;
+
+            if (notice == null)
+            {
+                return;
+            }
+
+            ShownNotifications.Remove(notice);
+        }
+
+        private void CloseNotificationClick(object sender, RoutedEventArgs e)
+        {
+            var control = sender as FrameworkElement;
+            var notice = control?.DataContext as Notification;
+
+            if (notice == null)
+            {
+                return;
+            }
+
+            ShownNotifications.Remove(notice);
+            OpenNotifications.Remove(notice);
+        }
     }
 }

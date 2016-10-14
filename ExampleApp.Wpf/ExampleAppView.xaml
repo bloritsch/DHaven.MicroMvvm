@@ -33,6 +33,6 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <controls:ToggleSwitch Grid.Row="0" Grid.Column="2" IsChecked="{Binding IsLightTheme}" OffLabel="Dark" OnLabel="Light"/>
-        <Button Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Padding="30,10" HorizontalAlignment="Center" Command="{Binding ClickCommand}">Click Me</Button>
+        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Padding="30,10" HorizontalAlignment="Center" Command="{Binding ClickCommand}">Click Me</Button>
     </Grid>
 </UserControl>
