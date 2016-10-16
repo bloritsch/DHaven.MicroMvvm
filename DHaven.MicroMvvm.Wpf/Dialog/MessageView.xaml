@@ -5,10 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dialog="clr-namespace:DHaven.MicroMvvm.Dialog;assembly=DHaven.MicroMvvm"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance dialog:Message}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <TextBlock Margin="0 5 0 0"
-                       FontSize="{StaticResource DialogMessageFontSize}"
-                       Text="{Binding Content}"
-                       TextWrapping="Wrap" />
+             d:DataContext="{d:DesignInstance dialog:Message}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{DynamicResource MessageTitleStyle}" />
+        <TextBlock Grid.Row="1" Text="{Binding Content}" Style="{DynamicResource MessageContentStyle}" TextWrapping="Wrap" />
+    </Grid>
 </UserControl>
