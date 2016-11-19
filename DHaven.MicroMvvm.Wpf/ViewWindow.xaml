@@ -16,8 +16,47 @@
     </controls:MetroWindow.RightWindowCommands>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <controls:Flyout Name="NotificationFlyout" Header="Notifications" Theme="Dark" Position="Right" Width="350">
+            <controls:Flyout Name="NotificationFlyout" Header="Notifications" Theme="Dark" Position="Right" Width="300">
+                <controls:Flyout.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Notifications" FontSize="{StaticResource FlyoutHeaderFontSize}"/>
+                            <Button Grid.Column="1"
+                                    Style="{StaticResource ChromelessButtonStyle}"
+                                    FontSize="{StaticResource ContentFontSize}"
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    Click="CloseAllNotificationsClick"
+                                    VerticalAlignment="Bottom"
+                                    Content="Clear all"/>
+                        </Grid>
+                    </DataTemplate>
+                </controls:Flyout.HeaderTemplate>
                 <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=OpenNotifications}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="OpenNotice" Margin="0,5" Padding="5,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="1"/>
+                                        <ColumnDefinition Width="50"/>
+                                    </Grid.ColumnDefinitions>
+                                    <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}" Foreground="{DynamicResource TextBrush}"/>
+                                    <Rectangle Grid.Column="1" Fill="{DynamicResource BlackBrush}"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Path=Created, StringFormat=h:Ma}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="OpenNotice" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="OpenNotice" Property="Background" Value="{DynamicResource SemiTransparentWhiteBrush}"/>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </controls:Flyout>
         </controls:FlyoutsControl>

@@ -88,5 +88,11 @@ namespace DHaven.MicroMvvm.Wpf
             ShownNotifications.Remove(notice);
             OpenNotifications.Remove(notice);
         }
+
+        private void CloseAllNotificationsClick(object sender, RoutedEventArgs e)
+        {
+            ShownNotifications.Clear();
+            OpenNotifications.Clear();
+        }
     }
 }

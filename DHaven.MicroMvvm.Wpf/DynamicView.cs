@@ -25,7 +25,7 @@ namespace DHaven.MicroMvvm.Wpf
     ///     Supports ViewModel first development.  Bind the DataContext to your
     ///     ViewModel, and the framework will create a DynamicView instance for your ViewModel.
     /// </summary>
-    public sealed class DynamicView : ContentControl, INotifyPropertyChanged
+    public sealed class DynamicView : ContentControl
     {
         public DynamicView()
         {
@@ -36,11 +36,6 @@ namespace DHaven.MicroMvvm.Wpf
 
         private Locator Locator { get; }
 
-        private void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? string.Empty));
-        }
-
         private void View_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // Just in case the old view disposable, we'll want to preserve the expected behavior
@@ -49,11 +44,5 @@ namespace DHaven.MicroMvvm.Wpf
 
             Content = Locator[DataContext];
         }
-
-        #region Implementations
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 }
