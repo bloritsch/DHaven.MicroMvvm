@@ -75,7 +75,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExampleAppView.xaml.cs" />
+    <Compile Include="ExampleAppView.xaml.cs">
+      <DependentUpon>ExampleAppView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ExampleAppViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

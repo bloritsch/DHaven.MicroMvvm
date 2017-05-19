@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -15,7 +16,6 @@
 #endregion
 
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 

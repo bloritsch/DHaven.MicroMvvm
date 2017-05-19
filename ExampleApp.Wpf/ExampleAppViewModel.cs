@@ -1,11 +1,27 @@
-﻿using System;
+﻿#region Copyright 2017 D-Haven.org
+
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using DHaven.MicroMvvm;
 using DHaven.MicroMvvm.Dialog;
-using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf;
 using MahApps.Metro;
 
@@ -26,7 +42,7 @@ namespace ExampleApp.Wpf
             get
             {
                 var style = ThemeManager.DetectAppStyle(Model);
-                return AvailableAccents.FirstOrDefault(info=>info.Model.Name == style.Item2.Name);
+                return AvailableAccents.FirstOrDefault(info => info.Model.Name == style.Item2.Name);
             }
             set
             {
@@ -62,14 +78,15 @@ namespace ExampleApp.Wpf
 
         private async void Clicked()
         {
-            IDialogCommand response = await Model.WindowManager.ShowDialog(new DialogViewModel("You clicked me!", "Do you like what you are seeing?", DialogCommand.Yes, DialogCommand.No));
+            var response = await Model.WindowManager.ShowDialog(new DialogViewModel("You clicked me!",
+                "Do you like what you are seeing?", DialogCommand.Yes, DialogCommand.No));
 
-            string title = response.Label == DialogCommand.Yes.Label ? "Hooray!" : "Oh well...";
-            string message = response.Label == DialogCommand.Yes.Label
+            var title = response.Label == DialogCommand.Yes.Label ? "Hooray!" : "Oh well...";
+            var message = response.Label == DialogCommand.Yes.Label
                 ? "I'm glad you like it."
                 : "I wonder how I can improve?";
 
-            INotificationControl control = Model.WindowManager.Notify(new Message(title, message));
+            var control = Model.WindowManager.Notify(new Message(title, message));
 
             control.AutoHideAfter(TimeSpan.FromSeconds(5));
             control.AutoCloseAfter(TimeSpan.FromSeconds(15));
@@ -85,8 +102,8 @@ namespace ExampleApp.Wpf
 
         public Brush AccentColor
         {
-            get { return GetValue<Brush>(nameof(AccentColor)); }
-            set { SetValue(nameof(AccentColor), value); }
+            get => GetValue<Brush>(nameof(AccentColor));
+            set => SetValue(nameof(AccentColor), value);
         }
     }
 }

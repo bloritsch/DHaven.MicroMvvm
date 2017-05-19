@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -22,7 +23,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using DHaven.MicroMvvm.Dialog;
 
 namespace DHaven.MicroMvvm.Wpf
 {
@@ -64,9 +64,8 @@ namespace DHaven.MicroMvvm.Wpf
                     var viewModelType = dataContext.GetType();
 
                     if (viewModelType.Name.EndsWith(ViewModel))
-                    {
-                        shortClassName = viewModelType.Name.Substring(0, viewModelType.Name.Length - ViewModel.Length) + View;
-                    }
+                        shortClassName = viewModelType.Name.Substring(0, viewModelType.Name.Length - ViewModel.Length) +
+                                         View;
                 }
 
                 if (dataContext is UserControl || dataContext is Page)
@@ -74,15 +73,11 @@ namespace DHaven.MicroMvvm.Wpf
                     var viewType = dataContext.GetType();
 
                     if (viewType.Name.EndsWith(View))
-                    {
                         shortClassName = viewType.Name.Substring(0, viewType.Name.Length - View.Length) + ViewModel;
-                    }
                 }
 
                 if (dataContext is Message)
-                {
                     shortClassName = dataContext.GetType().Name + View;
-                }
 
                 return CreateObjectFor(shortClassName ?? dataContext?.GetType().Name);
             }
@@ -94,18 +89,14 @@ namespace DHaven.MicroMvvm.Wpf
             searchedAssemblies.Add(assemblyName);
 
             foreach (var type in assembly.DefinedTypes.Where(IsFrameworkType))
-            {
                 DiscoveredTypes.Add(type.Name, type);
-            }
 
             foreach (var referencedName in assembly.GetReferencedAssemblies())
-            {
                 if (!searchedAssemblies.Contains(referencedName.ToString()))
                 {
                     var dependency = Assembly.Load(referencedName);
                     ScanForFrameworkTypes(dependency, ref searchedAssemblies);
                 }
-            }
         }
 
         private static bool IsFrameworkType(TypeInfo type)
@@ -116,13 +107,10 @@ namespace DHaven.MicroMvvm.Wpf
         private static object CreateObjectFor(string className)
         {
             if (string.IsNullOrWhiteSpace(className))
-            {
                 return null;
-            }
 
             Type targetType;
             if (DiscoveredTypes.TryGetValue(className, out targetType))
-            {
                 try
                 {
                     var constructor = targetType.GetConstructor(new Type[0]);
@@ -132,7 +120,6 @@ namespace DHaven.MicroMvvm.Wpf
                 {
                     // Ignore.  Couldn't create, so we swallow the exception and return null.
                 }
-            }
 
             return null;
         }

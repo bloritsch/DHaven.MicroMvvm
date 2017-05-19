@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -26,8 +27,14 @@ namespace DHaven.MicroMvvm
         private readonly Dictionary<string, object> propertyValues = new Dictionary<string, object>();
         private bool isReadonly;
 
+        #region Implementations
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
         /// <summary>
-        /// Makes all properties backed with GetValue/SetValue read only.
+        ///     Makes all properties backed with GetValue/SetValue read only.
         /// </summary>
         protected void MakeReadonly()
         {
@@ -40,9 +47,7 @@ namespace DHaven.MicroMvvm
 
             object value;
             if (!propertyValues.TryGetValue(propertyName, out value))
-            {
                 value = default(TValue);
-            }
 
             return (TValue) value;
         }
@@ -50,19 +55,14 @@ namespace DHaven.MicroMvvm
         protected void SetValue<TValue>(string propertyName, TValue value)
         {
             if (isReadonly)
-            {
                 throw new ArgumentException($"{GetType().Name} is read-only.");
-            }
 
             Debug.Assert(propertyName != null);
 
             if (propertyValues.ContainsKey(propertyName))
             {
                 if (Equals(propertyValues[propertyName], value))
-                {
-                    // If it's the same value, return immediately.
                     return;
-                }
 
                 propertyValues[propertyName] = value;
             }
@@ -78,11 +78,5 @@ namespace DHaven.MicroMvvm
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? string.Empty));
         }
-
-        #region Implementations
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 }

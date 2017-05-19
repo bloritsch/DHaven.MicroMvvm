@@ -10,7 +10,7 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <ToggleButton Padding="3" IsChecked="{Binding ElementName=NotificationFlyout, Path=IsOpen}">
-                <iconPacks:PackIconMaterial Kind="Message"/>
+                <iconPacks:PackIconMaterial Kind="Message" />
             </ToggleButton>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
@@ -21,38 +21,42 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Notifications" FontSize="{StaticResource FlyoutHeaderFontSize}"/>
+                            <TextBlock Text="Notifications" FontSize="{StaticResource FlyoutHeaderFontSize}" />
                             <Button Grid.Column="1"
                                     Style="{StaticResource ChromelessButtonStyle}"
                                     FontSize="{StaticResource ContentFontSize}"
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     Click="CloseAllNotificationsClick"
                                     VerticalAlignment="Bottom"
-                                    Content="Clear all"/>
+                                    Content="Clear all" />
                         </Grid>
                     </DataTemplate>
                 </controls:Flyout.HeaderTemplate>
-                <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=OpenNotifications}">
+                <ItemsControl
+                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=OpenNotifications}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="OpenNotice" Margin="0,5" Padding="5,0">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="1"/>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="1" />
+                                        <ColumnDefinition Width="50" />
                                     </Grid.ColumnDefinitions>
-                                    <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}" Foreground="{DynamicResource TextBrush}"/>
-                                    <Rectangle Grid.Column="1" Fill="{DynamicResource BlackBrush}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Path=Created, StringFormat=h:Ma}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                    <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}"
+                                                     Foreground="{DynamicResource TextBrush}" />
+                                    <Rectangle Grid.Column="1" Fill="{DynamicResource BlackBrush}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Path=Created, StringFormat=h:Ma}"
+                                               VerticalAlignment="Top" HorizontalAlignment="Right" />
                                 </Grid>
                             </Border>
                             <DataTemplate.Triggers>
                                 <Trigger SourceName="OpenNotice" Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="OpenNotice" Property="Background" Value="{DynamicResource SemiTransparentWhiteBrush}"/>
+                                    <Setter TargetName="OpenNotice" Property="Background"
+                                            Value="{DynamicResource SemiTransparentWhiteBrush}" />
                                 </Trigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
@@ -63,8 +67,8 @@
     </controls:MetroWindow.Flyouts>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
         <wpf:DynamicView DataContext="{Binding Path=., IsAsync=True}" Grid.ColumnSpan="2" Margin="10">
             <Grid>
@@ -75,23 +79,27 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ProgressBar Margin="20,10" Height="10" Grid.Row="1" IsIndeterminate="True" IsHitTestVisible="False" />
-                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="{StaticResource WindowTitleFontSize}"  Text="Loading ..."/>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="{StaticResource WindowTitleFontSize}"
+                           Text="Loading ..." />
             </Grid>
         </wpf:DynamicView>
-        <ItemsControl Margin="0 25" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=ShownNotifications}" VerticalAlignment="Bottom">
+        <ItemsControl Margin="0 25" Grid.Column="1"
+                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:ViewWindow}, Path=ShownNotifications}"
+                      VerticalAlignment="Bottom">
             <ItemsControl.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                        <ResourceDictionary
+                            Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
                     </ResourceDictionary.MergedDictionaries>
-                    
+
                     <Style x:Key="MessageTitleStyle" TargetType="TextBlock">
-                        <Setter Property="Margin" Value="0 0 0 5"/>
-                        <Setter Property="FontSize" Value="{StaticResource WindowTitleFontSize}"/>
+                        <Setter Property="Margin" Value="0 0 0 5" />
+                        <Setter Property="FontSize" Value="{StaticResource WindowTitleFontSize}" />
                     </Style>
                     <Style x:Key="MessageContentStyle" TargetType="TextBlock">
-                        <Setter Property="Margin" Value="5 0 0 0"/>
-                        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}"/>
+                        <Setter Property="Margin" Value="5 0 0 0" />
+                        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}" />
                     </Style>
                 </ResourceDictionary>
             </ItemsControl.Resources>
@@ -100,12 +108,14 @@
                     <Border Background="{DynamicResource ControlBackgroundBrush}" Margin="0 5">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                                <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}" Foreground="{DynamicResource TextBrush}" Margin="5"/>
-                            <Button Grid.Column="1" Style="{StaticResource ChromelessButtonStyle}" Margin="5" Click="HideNotificationClick" VerticalAlignment="Top">
-                                <iconPacks:PackIconMaterial Kind="Close" Width="10" Height="10"/>
+                            <wpf:DynamicView Grid.Column="0" DataContext="{Binding Model}"
+                                             Foreground="{DynamicResource TextBrush}" Margin="5" />
+                            <Button Grid.Column="1" Style="{StaticResource ChromelessButtonStyle}" Margin="5"
+                                    Click="HideNotificationClick" VerticalAlignment="Top">
+                                <iconPacks:PackIconMaterial Kind="Close" Width="10" Height="10" />
                             </Button>
                         </Grid>
                     </Border>

@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -20,10 +21,12 @@ namespace DHaven.MicroMvvm
     ///     Not intended to be used directly.  Used internally by implementation
     ///     specific Locators.
     /// </summary>
-    public interface IViewModel {}
+    public interface IViewModel
+    {
+    }
 
     /// <summary>
-    /// The ViewModel base class.
+    ///     The ViewModel base class.
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public abstract class ViewModel<TModel> : ObservableObject, IViewModel
@@ -35,8 +38,8 @@ namespace DHaven.MicroMvvm
 
         public TModel Model
         {
-            get { return GetValue<TModel>(nameof(Model)); }
-            set { SetValue(nameof(Model), value); }
+            get => GetValue<TModel>(nameof(Model));
+            set => SetValue(nameof(Model), value);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -14,7 +15,6 @@
 
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,21 +24,21 @@ namespace DHaven.MicroMvvm.Dialog
 {
     public class DialogViewModel : ViewModel<Message>
     {
-        public DialogViewModel():this(new Message(), DialogCommand.Ok)
-        { }
+        public DialogViewModel() : this(new Message(), DialogCommand.Ok)
+        {
+        }
 
         public DialogViewModel(string title, string content, params IDialogCommand[] commands) :
-            this(new Message { Title = title, Content = content}, commands)
-        { }
+            this(new Message {Title = title, Content = content}, commands)
+        {
+        }
 
         public DialogViewModel(Message content, params IDialogCommand[] commands) : base(content)
         {
             Commands = new ObservableCollection<IDialogCommand>(commands);
 
             if (!Commands.Any())
-            {
                 Commands.Add(DialogCommand.Ok);
-            }
         }
 
         public TaskCompletionSource<IDialogCommand> Result { get; } = new TaskCompletionSource<IDialogCommand>();

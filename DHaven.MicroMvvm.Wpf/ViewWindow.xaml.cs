@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -18,7 +19,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf.Notice;
 
 namespace DHaven.MicroMvvm.Wpf
@@ -35,7 +35,8 @@ namespace DHaven.MicroMvvm.Wpf
             InitializeComponent();
         }
 
-        public ObservableCollection<Notification> ShownNotifications { get; } = new ObservableCollection<Notification>();
+        public ObservableCollection<Notification> ShownNotifications { get; } =
+            new ObservableCollection<Notification>();
 
         public ObservableCollection<Notification> OpenNotifications { get; } = new ObservableCollection<Notification>();
 
@@ -68,9 +69,7 @@ namespace DHaven.MicroMvvm.Wpf
             var notice = control?.DataContext as Notification;
 
             if (notice == null)
-            {
                 return;
-            }
 
             ShownNotifications.Remove(notice);
         }
@@ -81,9 +80,7 @@ namespace DHaven.MicroMvvm.Wpf
             var notice = control?.DataContext as Notification;
 
             if (notice == null)
-            {
                 return;
-            }
 
             ShownNotifications.Remove(notice);
             OpenNotifications.Remove(notice);

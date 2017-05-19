@@ -1,11 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿#region Copyright 2017 D-Haven.org
+
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+#endregion
+
+using System;
 using System.Threading.Tasks;
-using DHaven.MicroMvvm.Dialog;
-using DHaven.MicroMvvm.Notice;
 
 namespace DHaven.MicroMvvm.Wpf.Notice
 {
@@ -19,6 +30,7 @@ namespace DHaven.MicroMvvm.Wpf.Notice
             this.notification = notification;
             this.viewWindow = viewWindow;
         }
+
         #region Implementation of INotificationControl
 
         public bool IsHidden => !viewWindow.ShownNotifications.Contains(notification);
@@ -31,9 +43,7 @@ namespace DHaven.MicroMvvm.Wpf.Notice
         {
             // Only show the notification if it is still open.
             if (IsHidden && !IsClosed)
-            {
                 viewWindow.ShownNotifications.Add(notification);
-            }
 
             RaisePropertyChanged(nameof(IsHidden));
         }
@@ -41,9 +51,7 @@ namespace DHaven.MicroMvvm.Wpf.Notice
         public void Hide()
         {
             if (!IsHidden)
-            {
                 viewWindow.ShownNotifications.Remove(notification);
-            }
 
             RaisePropertyChanged(nameof(IsHidden));
         }

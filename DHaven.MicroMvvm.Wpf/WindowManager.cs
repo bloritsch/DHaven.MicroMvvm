@@ -1,5 +1,6 @@
-﻿#region Copyright 2016 D-Haven.org
+﻿#region Copyright 2017 D-Haven.org
 
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -14,19 +15,14 @@
 
 #endregion
 
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using DHaven.MicroMvvm.Dialog;
-using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf.Dialog;
 using DHaven.MicroMvvm.Wpf.Notice;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace DHaven.MicroMvvm.Wpf
 {
@@ -39,20 +35,20 @@ namespace DHaven.MicroMvvm.Wpf
 
         public ResizeMode ResizeMode
         {
-            get { return GetValue<ResizeMode>(nameof(ResizeMode)); }
-            set { SetValue(nameof(ResizeMode), value); }
+            get => GetValue<ResizeMode>(nameof(ResizeMode));
+            set => SetValue(nameof(ResizeMode), value);
         }
 
         public ImageSource AppIcon
         {
-            get { return GetValue<ImageSource>(nameof(AppIcon)); }
-            set { SetValue(nameof(AppIcon), value); }
+            get => GetValue<ImageSource>(nameof(AppIcon));
+            set => SetValue(nameof(AppIcon), value);
         }
 
         public string AppName
         {
-            get { return GetValue<string>(nameof(AppName)); }
-            set { SetValue(nameof(AppName), value); }
+            get => GetValue<string>(nameof(AppName));
+            set => SetValue(nameof(AppName), value);
         }
 
         #region Implementation of IWindowManager
@@ -89,14 +85,12 @@ namespace DHaven.MicroMvvm.Wpf
             };
 
             if (showAppIcon)
-            {
                 BindingOperations.SetBinding(window, Window.IconProperty, new Binding
                 {
                     Source = this,
                     Path = new PropertyPath(nameof(AppIcon)),
                     IsAsync = true
                 });
-            }
 
             BindingOperations.SetBinding(window, Window.TitleProperty, new Binding
             {
@@ -116,7 +110,7 @@ namespace DHaven.MicroMvvm.Wpf
 
         public INotificationControl Notify(Message message, IViewModel parentViewModel = null)
         {
-            ViewWindow window = GetViewModelWindow(parentViewModel);
+            var window = GetViewModelWindow(parentViewModel);
 
             return window.Publish(new Notification(message));
         }
