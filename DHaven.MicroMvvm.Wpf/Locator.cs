@@ -15,6 +15,7 @@
 
 #endregion
 
+using DHaven.MicroMvvm.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;

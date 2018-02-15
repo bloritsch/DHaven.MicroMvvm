@@ -19,6 +19,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
+using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf.Notice;
 
 namespace DHaven.MicroMvvm.Wpf

@@ -15,6 +15,7 @@
 
 #endregion
 
+using DHaven.MicroMvvm.Dialog;
 using System.Windows;
 
 namespace DHaven.MicroMvvm.Wpf.Dialog

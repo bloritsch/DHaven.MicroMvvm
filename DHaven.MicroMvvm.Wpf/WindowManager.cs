@@ -21,8 +21,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using DHaven.MicroMvvm.Dialog;
+using DHaven.MicroMvvm.Notice;
 using DHaven.MicroMvvm.Wpf.Dialog;
 using DHaven.MicroMvvm.Wpf.Notice;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace DHaven.MicroMvvm.Wpf
 {

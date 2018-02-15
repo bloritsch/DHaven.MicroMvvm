@@ -15,6 +15,8 @@
 
 #endregion
 
+using DHaven.MicroMvvm.Dialog;
+using DHaven.MicroMvvm.Notice;
 using System;
 using System.Threading.Tasks;
 

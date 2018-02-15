@@ -1,15 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>A mostly unopinionated MVVM set of tools.</Description>
     <Copyright>Copyright 2017 D-Haven.org</Copyright>
     <PackageLicenseUrl>https://github.com/bloritsch/DHaven.MicroMvvm/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/bloritsch/DHaven.MicroMvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bloritsch/DHaven.MicroMvvm</RepositoryUrl>
-    <PackageTags>mvvm netcore microframework</PackageTags>
-    <PackageReleaseNotes>Initial NetCore release</PackageReleaseNotes>
+    <PackageTags>mvvm netstandard microframework</PackageTags>
+    <PackageReleaseNotes>Net Standard 2.0 release</PackageReleaseNotes>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
 </Project>
