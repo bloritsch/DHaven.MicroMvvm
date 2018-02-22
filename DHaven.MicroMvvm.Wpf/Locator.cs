@@ -87,17 +87,39 @@ namespace DHaven.MicroMvvm.Wpf
         private static void ScanForFrameworkTypes(Assembly assembly, ref List<string> searchedAssemblies)
         {
             var assemblyName = assembly.GetName().ToString();
-            searchedAssemblies.Add(assemblyName);
+
+            try
+            {
+                searchedAssemblies.Add(assemblyName);
+            }
+            catch (Exception e)
+            {
+                // Add some context so that when it is caught we can see what's going on.
+                throw new DHavenInitializationException($"Could not include ${assemblyName} to scanned elements", e);
+            }
 
             foreach (var type in assembly.DefinedTypes.Where(IsFrameworkType))
-                DiscoveredTypes.Add(type.Name, type);
+            {
+                try
+                {
+                    DiscoveredTypes.Add(type.Name, type);
+                }
+                catch (Exception e)
+                {
+                    // Add some context so that when it is caught we can see what's going on.
+                    throw new DHavenInitializationException($"\"${type.Name}\" is mapped to [${DiscoveredTypes[type.Name].FullName}]," +
+                        $" instead of [${type.FullName}]", e);
+                }
+            }
 
             foreach (var referencedName in assembly.GetReferencedAssemblies())
+            {
                 if (!searchedAssemblies.Contains(referencedName.ToString()))
                 {
                     var dependency = Assembly.Load(referencedName);
                     ScanForFrameworkTypes(dependency, ref searchedAssemblies);
                 }
+            }
         }
 
         private static bool IsFrameworkType(TypeInfo type)

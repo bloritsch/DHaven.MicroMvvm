@@ -15,6 +15,7 @@
 
 #endregion
 
+using MahApps.Metro;
 using System;
 using System.Windows;
 
