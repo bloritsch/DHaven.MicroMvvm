@@ -18,6 +18,7 @@
 using DHaven.MicroMvvm.Dialog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -43,6 +44,8 @@ namespace DHaven.MicroMvvm.Wpf
         };
 
         private static readonly Dictionary<string, Type> DiscoveredTypes = new Dictionary<string, Type>();
+
+        public static IList<AssemblyName> UnscannableAssemblies { get; } = new List<AssemblyName>();
 
         static Locator()
         {
@@ -86,29 +89,27 @@ namespace DHaven.MicroMvvm.Wpf
 
         private static void ScanForFrameworkTypes(Assembly assembly, ref List<string> searchedAssemblies)
         {
-            var assemblyName = assembly.GetName().ToString();
+            if (searchedAssemblies.Contains(assembly.FullName))
+            {
+                return;
+            }
 
-            try
-            {
-                searchedAssemblies.Add(assemblyName);
-            }
-            catch (Exception e)
-            {
-                // Add some context so that when it is caught we can see what's going on.
-                throw new DHavenInitializationException($"Could not include ${assemblyName} to scanned elements", e);
-            }
+            Debug.WriteLine($"Scanning {assembly.FullName}");
+            searchedAssemblies.Add(assembly.FullName);
 
             foreach (var type in assembly.DefinedTypes.Where(IsFrameworkType))
             {
                 try
                 {
+                    Debug.WriteLine($"Adding type {type.FullName}");
                     DiscoveredTypes.Add(type.Name, type);
                 }
                 catch (Exception e)
                 {
+                    var discoveredType = DiscoveredTypes[type.Name];
                     // Add some context so that when it is caught we can see what's going on.
-                    throw new DHavenInitializationException($"\"${type.Name}\" is mapped to [${DiscoveredTypes[type.Name].FullName}]," +
-                        $" instead of [${type.FullName}]", e);
+                    throw new DHavenInitializationException($"\"{type.Name}\" is mapped to [{discoveredType.FullName}@{discoveredType.Assembly.FullName}]," +
+                        $" instead of [{type.FullName}@{type.Assembly.FullName}]", e);
                 }
             }
 
@@ -116,8 +117,16 @@ namespace DHaven.MicroMvvm.Wpf
             {
                 if (!searchedAssemblies.Contains(referencedName.ToString()))
                 {
-                    var dependency = Assembly.Load(referencedName);
-                    ScanForFrameworkTypes(dependency, ref searchedAssemblies);
+                    try
+                    {
+                        var dependency = Assembly.Load(referencedName);
+                        ScanForFrameworkTypes(dependency, ref searchedAssemblies);
+                    }
+                    catch(Exception e)
+                    {
+                        // Load error, skip the assembly
+                        UnscannableAssemblies.Add(referencedName);
+                    }
                 }
             }
         }
